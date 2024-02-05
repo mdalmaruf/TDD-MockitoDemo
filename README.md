@@ -55,22 +55,43 @@ public interface UserRepository {
 This class represents a user entity.
 
 ```java
+package org.example;
+
 public class User {
     private Long id;
     private String name;
 
+    // Constructor
     public User(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    // Getters and setters omitted for brevity
+    // Getters and setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
+
 ```
 
 ### UserService
 This class contains business logic and relies on UserRepository.
 ```java
+package org.example;
+
 public class UserService {
     private UserRepository userRepository;
 
@@ -81,6 +102,7 @@ public class UserService {
     public User getUserById(Long id) {
         return userRepository.findById(id);
     }
+
 }
 ```
 
@@ -88,10 +110,15 @@ public class UserService {
 Create a test class UserServiceTest to test the UserService class.
 
 ```java
-import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+package org.example;
 
-public class UserServiceTest {
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+class UserServiceTest {
+
 
     @Test
     public void testGetUserById() {
@@ -109,10 +136,11 @@ public class UserServiceTest {
 
         // Verify the result
         assertEquals("John Doe", result.getName());
-        
+
         // Verify interaction with mock
         verify(mockRepository).findById(1L);
     }
+
 }
 ```
 
